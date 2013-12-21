@@ -8,13 +8,14 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node app.js"
   },
   "author": "James",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "mongoose": "~3.8.0",
     "express": "~3.4.4",
-    "jade": "~0.35.0"
+    "ejs": "~0.8.5",
+    "mongoose": "~3.8.3",
+    "underscore": "~1.5.2"
   }
 }
