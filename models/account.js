@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 
 
 var accountSchema = new mongoose.Schema({
-    _id: String,
     name: String,
     address: String,
     owner: String,
@@ -14,26 +13,18 @@ var accountSchema = new mongoose.Schema({
             hashes: Number,
             transactions: [
                 {
-                    id: String,
+                    id: Number,
                     timestamp: Date,
-                    account_hashes: Number,
                     hashes: Number,
+                    hashes_total: Number,
                     amount: Number,
+                    amount_total: Number,
+                    fee: Number,
                     action: String
                 }
             ]
         }
-    ],
-    transactions: [
-        {
-            id: String,
-            timestamp: Date,
-            hashes: Number,
-            fee: Number,
-            amount: Number,
-            action: String
-        }
     ]
 });
 
-exports = mongoose.model('Server', accountSchema, 'server');
+module.exports = mongoose.model('Account', accountSchema, 'account');

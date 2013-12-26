@@ -25,8 +25,13 @@ app.get('/signin', function (req, res) {
 });
 
 // Address page
-var addressRoute = function (req, res) {
+app.get('/address/:id', function (req, res) {
     var address = req.params.id;
+
+    // Query database for a list of accounts this out-address belongs to
+
+    // Send the results to the render function
+
     res.render(__dirname + '/views/pages/table-basic.ejs',
         {
             address: address,
@@ -34,10 +39,7 @@ var addressRoute = function (req, res) {
             servers: servers
         }
     );
-};
-
-app.get('/address', addressRoute);
-app.get('/address/:id', addressRoute);
+});
 
 
 // Server static files
@@ -46,43 +48,34 @@ app.use(express.static(__dirname + '/static'));
 
 app.get('/test', function (req, res) {
     // Create an account
-    var account1 = new Account({
-        _id: "dell-server 1",
+    Account.create({
         name: "server 1",
-        address: "w38w3jfw83jf8w3fja83ua",
-        owner: "dell",
+        address: "asdf",
+        owner: "delmonger",
         coin_type: "bitcoin",
-        hashes: 2000000000,
+        hashes: 2000000000000,
         addresses: [
             {
-                id: "asdf8aw38ja8w3faojaw8fjaw83",
-                hashes: 500000000,
+                id: "12mshoCg8tGAejUf2wcxZQqfJvB5LNfhrp",
+                hashes: 35000000000,
                 transactions: [
                     {
-                        id: "ao83wfaw8o3fjaow83fjaow8fjawo3f8waaw8of",
+                        id: 1,
                         timestamp: new Date,
-                        hashes: 500000000,
-                        total_hashes: 2000000000,
-                        amount: 1.280864195,
-                        total_amount: 5.12345678,
-                        action: "add"
+                        hashes: 35000000000,
+                        hashes_total: 2000000000000,
+                        amount: 1,
+                        amount_total: Number,
+                        btc_usd: Number,
+                        fee: Number,
+                        action: String
                     }
                 ]
             }
-        ],
-        transactions: [
-            {
-                id: "asdf8aw38ja8w3faojaw8fjaw83",
-                timestamp: new Date,
-                total_hashes: 2000000000,
-                fee: 0.512345678,
-                total_amount: 5.12345678,
-                action: "add"
-            }
         ]
+    }, function (err, account) {
+        res.send(account1);
     });
-
-    console.log(account1.get('_id'));
 });
 
 app.listen(3000);
