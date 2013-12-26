@@ -2,23 +2,22 @@ var mongoose = require('mongoose');
 
 
 var accountSchema = new mongoose.Schema({
-    name: String,
-    address: String,
-    owner: String,
-    coin_type: String,
+    name: String,  // Name of the server (cointraction)
+    address: String, // Whatever address we generate for the bitcoin account
+    owner: String, // "delmonger"
+    coin_type: String, // "bitcoin"
     addresses: [
         {
-            address: String,
-            name: String,
-            hashes: Number,
+            address: String, // Out address (can have multiples in here, non-unique)
+            name: String, // "YOLANDA MARIA AGOSTINI"
+            hashes: Number, // 177000000000
             transactions: [
                 {
-                    id: Number,
-                    timestamp: Date,
-                    hashes: Number,
-                    hashes_total: Number,
-                    amount: Number,
-                    amount_total: Number,
+                    id: Number, // Incremented transaction number.  The last transaction # is stored somewhere else... wherever that is
+                    timestamp: Date, // new Date
+                    hashes: Number, // 177000000000
+                    hashes_total: Number, // 2000000000000 (the summation of all address hashes for this account at the time of transaction
+                    amount_total: Number, // This is the amount
                     usd_btc: Number,
                     fee_period: Number,
                     fee_per_hash: Number
