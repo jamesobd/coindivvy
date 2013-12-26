@@ -14,12 +14,6 @@ var client = new bitcoin.Client({
 // For connecting to coinbase to fetch the spot price
 var https = require('https');
 
-var bitcoinValue;
-var valueTimer;
-getValue(function(value) {
-    console.log(value);
-});
-
 
 function getBlockCount() {
     client.getBlockCount(function(err, blockCount) {
@@ -81,14 +75,6 @@ function send(fromAccount, transfers) {
     });
 }
 
-function getValue(callback) {
-    if (bitcoinValue == undefined) {
-        fetchValue(callback);
-    } else {
-        callback(bitcoinValue);
-    }
-}
-
 function fetchValue(callback) {
     var request = https.request(
         {host: 'www.bitstamp.net', path: '/api/ticker/'},
@@ -99,11 +85,8 @@ function fetchValue(callback) {
             });
             response.on('end', function () {
                 var responseObject = JSON.parse(body);
-                bitcoinValue = responseObject.last;
-                clearInterval(valueTimer);
-                valueTimer = setTimeout(fetchValue, 10000);
                 if (callback != undefined) {
-                    callback(bitcoinValue);
+                    callback(responseObject.last);
                 }
             });
         }

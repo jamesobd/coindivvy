@@ -6,10 +6,10 @@ var accountSchema = new mongoose.Schema({
     address: String,
     owner: String,
     coin_type: String,
-    hashes: Number,
     addresses: [
         {
-            id: String,
+            address: String,
+            name: String,
             hashes: Number,
             transactions: [
                 {
@@ -19,8 +19,9 @@ var accountSchema = new mongoose.Schema({
                     hashes_total: Number,
                     amount: Number,
                     amount_total: Number,
-                    fee: Number,
-                    action: String
+                    usd_btc: Number,
+                    fee_period: Number,
+                    fee_per_hash: Number
                 }
             ]
         }
