@@ -29,6 +29,39 @@ app.get('/address/:id', function (req, res) {
     var address = req.params.id;
 
     // Query database for a list of accounts this out-address belongs to
+    var accounts = [{
+        name: "server 1",
+        address: "asdf",
+        owner: "delmonger",
+        coin_type: "bitcoin",
+        hashes: 2000000000000,
+        addresses: [
+            {
+                id: "12mshoCg8tGAejUf2wcxZQqfJvB5LNfhrp",
+                hashes: 35000000000,
+                transactions: [
+                    {
+                        id: 1,
+                        timestamp: new Date,
+                        hashes: 35000000000,
+                        hashes_total: 2000000000000,
+                        amount_total: Number,
+                        btc_usd: Number,
+                        fee: Number,
+                        action: String
+                    }
+                ]
+            }
+        ]
+    }];
+
+    var transactions = [{
+        account: "server 1",
+        name: "server 1",
+        timestamp: new Date,
+        hashes: 35000000000,
+        amount_total: 1
+    }];
 
     // Send the results to the render function
 
@@ -36,7 +69,7 @@ app.get('/address/:id', function (req, res) {
         {
             address: address,
             transactions: transactions,
-            servers: servers
+            accounts: accounts
         }
     );
 });

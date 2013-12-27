@@ -78,8 +78,15 @@
         <nav id="sidebar">
 
             <ul id="main-nav" class="open-active">
-                <% for (index = 0; index < servers.length; ++index) { %>
-                <li class=""><%= servers[index].server %>: <%= servers[index].hashes %>hashes</li>
+                <% for (i = 0; i < accounts.length; ++i) { %>
+                <li class="">
+                    <h3><%= accounts[i].name %></h3>
+                </li>
+                    <% for (j = 0; j < accounts[i].addresses.length; ++j) { %>
+                <li class="">
+                    <%= accounts[i].addresses[j].hashes %>hashes
+                </li>
+                    <% } %>
                 <% } %>
             </ul>
 
@@ -112,10 +119,11 @@
                     <table class="table table-bordered table-highlight table-hover table-striped">
                         <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Server</th>
-                            <th>Timestamp</th>
-                            <th>Amount</th>
+                            <th>TX #</th>
+                            <th>Account Name</th>
+                            <th>Date</th>
+                            <th>Address Hashes</th>
+                            <th>Net Amount</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -123,9 +131,10 @@
                         <% for (index = 0; index < transactions.length; ++index) { %>
                         <tr>
                             <td><%= index + 1 %></td>
-                            <td><%= transactions[index].server %></td>
+                            <td><%= transactions[index].name %></td>
                             <td><%= transactions[index].timestamp %></td>
-                            <td><%= transactions[index].amount %></td>
+                            <td><%= transactions[index].hashes %></td>
+                            <td><%= transactions[index].amount_total %></td>
                         </tr>
                         <% } %>
                         </tbody>
