@@ -14,7 +14,7 @@ var accountSchema = new mongoose.Schema({
             transactions: [
                 {
                     id: Number, // Incremented transaction number.  The last transaction # is stored somewhere else... wherever that is
-                    timestamp: Date, // new Date
+                    timestamp: { type: Date, default: Date.now }, // new Date
                     hashes: Number, // 177000000000
                     hashes_total: Number, // 2000000000000 (the summation of all address hashes for this account at the time of transaction
                     amount_total: Number, // This is the amount
