@@ -9,7 +9,7 @@
 <html class="no-js"> <!--<![endif]-->
 <head>
 
-    <title>Coin Divvy - Transaction History</title>
+    <title>Coin Divvy</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content="">
@@ -71,23 +71,18 @@
     <div id="sidebar-wrapper" class="collapse sidebar-collapse">
 
         <div id="search">
+            <form>
+                <input class="form-control input-sm" type="text" name="search" placeholder="Search..."/>
 
+                <button type="submit" id="search-btn" class="btn"><i class="fa fa-search"></i></button>
+            </form>
         </div>
         <!-- #search -->
 
         <nav id="sidebar">
 
             <ul id="main-nav" class="open-active">
-                <% for (i = 0; i < accounts.length; ++i) { %>
-                <li class="">
-                    <h3><%= accounts[i].key.name %></h3>
-                    <% var accountHashes = 0 %>
-                    <% for (j = 0; j < accounts[i].addresses.length; ++j) { %>
-                        <% accountHashes += accounts[i].addresses[j].hashes %>
-                    <% } %>
-                    <%= accountHashes %> hashes
-                </li>
-                <% } %>
+
             </ul>
 
         </nav>
@@ -100,7 +95,7 @@
     <div id="content">
 
         <div id="content-header">
-            <h1>Transaction History</h1>
+            <h1>Enter your address</h1>
         </div>
         <!-- #content-header -->
 
@@ -109,52 +104,22 @@
 
 
             <div class="row">
-
-                <div class="col-md-12">
-
-                    <h4 class="heading">
-                        Address: <%= params.address %>
-                    </h4>
-
-                    <% accounts.forEach(function(account, i, accounts) { %>
-                        <div>Account: <%= account.key.name %></div>
-                        <table class="table table-bordered table-highlight table-hover table-striped">
-                            <thead>
-                            <tr>
-                                <th>TX #</th>
-                                <th>Date</th>
-                                <th>Hashes</th>
-                                <th>Amount</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                            <% account.addresses.forEach(function(address, i, addresses) { %>
-                                <% if (address.address == params.address) { %>
-                                    <% address.transactions.forEach(function(transaction, i, transactions) { %>
-                                        <tr>
-                                            <td><%= transaction.id %></td>
-                                            <td><%= transaction.timestamp %></td>
-                                            <td><%= transaction.hashes %></td>
-                                            <td>asdf</td>
-                                        </tr>
-                                    <% }); %>
-                                <% }; %>
-                            <% }); %>
-                            </tbody>
-                        </table>
-                    <% }); %>
-
-                </div>
-                <!-- /.col -->
-
+                <div class="col-md-6 col-md-offset-3">
+                    <form id="support-search" class="form">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input id="support-search-field" type="text" class="form-control input-lg" name="search" placeholder="Have a question? Ask or enter a search term.">
+								<span class="input-group-btn">
+							        <button id="support-search-btn" class="btn btn-primary btn-lg" type="button"><i class="fa fa-search"></i>&nbsp; Search</button>
+							      </span>
+                            </div>
+                        </div>
+                    </form>
+                </div> <!-- /.col-md-12 -->
             </div>
-            <!-- /.row -->
-
 
         </div>
         <!-- /#content-container -->
-
 
     </div>
     <!-- #content -->
@@ -171,11 +136,11 @@
     </ul>
 </footer>
 
-<script src="/js/libs/jquery-1.9.1.min.js"></script>
-<script src="/js/libs/jquery-ui-1.9.2.custom.min.js"></script>
-<script src="/js/libs/bootstrap.min.js"></script>
+<script src="./js/libs/jquery-1.9.1.min.js"></script>
+<script src="./js/libs/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="./js/libs/bootstrap.min.js"></script>
 
-<script src="/js/App.js"></script>
+<script src="./js/App.js"></script>
 
 </body>
 </html>

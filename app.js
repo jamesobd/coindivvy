@@ -16,7 +16,7 @@ app.set('view engine', 'ejs');
 
 // Home page
 app.get('/', function (req, res) {
-    res.sendfile(__dirname + '/views/pages/index.html');
+    res.sendfile(__dirname + '/views/pages/page-blank.html');
 });
 
 // Sign in page
@@ -25,101 +25,38 @@ app.get('/signin', function (req, res) {
 });
 
 // Address page
-app.get('/address/:id', function (req, res) {
-    var address = req.params.id;
+app.get('/address/:address', function (req, res) {
+    var params = req.params;
 
     // Query database for a list of accounts this out-address belongs to
-    var accounts = [
-        {
-            name: "server 1",
-            address: "asdf",
-            owner: "delmonger",
-            coin_type: "bitcoin",
-            hashes: 2000000000000,
-            addresses: [
-                {
-                    id: "12mshoCg8tGAejUf2wcxZQqfJvB5LNfhrp",
-                    hashes: 35000000000,
-                    transactions: [
-                        {
-                            id: 1,
-                            timestamp: new Date,
-                            hashes: 35000000000,
-                            hashes_total: 2000000000000,
-                            amount_total: Number,
-                            btc_usd: Number,
-                            fee: Number,
-                            action: String
-                        }
-                    ]
-                }
-            ]
-        }
-    ];
+    Account.find({ 'addresses.address': params.address }).exec(function(err, accounts) {
+        if (err) return handleError(err);
+        accounts.forEach(function(account, i, accounts) {
 
-    var transactions = [
-        {
-            account: "server 1",
-            name: "server 1",
-            timestamp: new Date,
-            hashes: 35000000000,
-            amount_total: 1
-        }
-    ];
+        });
 
-    // Send the results to the render function
+        // Send the results to the render function
+        res.render(__dirname + '/views/pages/table-basic.ejs',
+            {
+                params: params,
+                accounts: accounts
+            }
+        );
+    });
 
-    res.render(__dirname + '/views/pages/table-basic.ejs',
-        {
-            address: address,
-            transactions: transactions,
-            accounts: accounts
-        }
-    );
 });
 
 
 // Server static files
 app.use(express.static(__dirname + '/static'));
 
-app.get('test', function (req, res) {
-    Account.find({ 'addresses.address': '13zxWKU9oAuxDLDPfi2xXnggSCMmeTBFj3' }).exec(function() {
-
+app.get('/test', function (req, res) {
+    Account.find({ 'addresses.address': '1MuZ6a9z1tqub3pNSy9Xo2HJT1ThMTbA7z' }).exec(function(err, accounts) {
+        if (err) return handleError(err);
+        res.send(accounts);
     });
 
 });
 
-app.get('/testcreate', function (req, res) {
-    // Create an account
-    Account.create({
-        name: "server 1",
-        address: "asdf",
-        owner: "delmonger",
-        coin_type: "bitcoin",
-        hashes: 2000000000000,
-        addresses: [
-            {
-                id: "12mshoCg8tGAejUf2wcxZQqfJvB5LNfhrp",
-                hashes: 35000000000,
-                transactions: [
-                    {
-                        id: 1,
-                        timestamp: new Date,
-                        hashes: 35000000000,
-                        hashes_total: 2000000000000,
-                        amount: 1,
-                        amount_total: Number,
-                        btc_usd: Number,
-                        fee: Number,
-                        action: String
-                    }
-                ]
-            }
-        ]
-    }, function (err, account) {
-        res.send(account1);
-    });
-});
-
-app.listen(3000);
-console.log('Listening on port 3000');
+app.listen(25943);
+console.log('Listening on port 25943');

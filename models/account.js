@@ -2,18 +2,22 @@ var mongoose = require('mongoose');
 
 
 var accountSchema = new mongoose.Schema({
-    name: String,  // Name of the server (cointraction)
+    key : {
+        name: String,  // Name of the server (cointraction)
+        owner: String // "delmonger"
+    },
     address: String, // Whatever address we generate for the bitcoin account
-    owner: String, // "delmonger"
     coin_type: String, // "bitcoin"
+    fee_period: Number,
+    fee_per_hash: Number,
     addresses: [
         {
-            address: String, // Out address (can have multiples in here, non-unique)
-            name: String, // "YOLANDA MARIA AGOSTINI"
+            address: String, // Out address (is unique)
             hashes: Number, // 177000000000
+            notes: String, // "YOLANDA MARIA AGOSTINI"
             transactions: [
                 {
-                    id: Number, // Incremented transaction number.  The last transaction # is stored somewhere else... wherever that is
+                    id: Number, // The transaction number from the cryptocurrency transaction system
                     timestamp: { type: Date, default: Date.now }, // new Date
                     hashes: Number, // 177000000000
                     hashes_total: Number, // 2000000000000 (the summation of all address hashes for this account at the time of transaction
@@ -27,4 +31,4 @@ var accountSchema = new mongoose.Schema({
     ]
 });
 
-module.exports = mongoose.model('Account', accountSchema, 'account');
+module.exports = mongoose.model('Account', accountSchema);
