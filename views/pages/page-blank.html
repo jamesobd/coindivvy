@@ -95,22 +95,21 @@
     <div id="content">
 
         <div id="content-header">
-            <h1>Enter your address</h1>
+            <h1>Address Search</h1>
         </div>
         <!-- #content-header -->
 
 
         <div id="content-container">
 
-
             <div class="row">
-                <div class="col-md-6 col-md-offset-3">
-                    <form id="support-search" class="form">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <form id="support-search" class="form" action="/address" method="get">
                         <div class="form-group">
                             <div class="input-group">
-                                <input id="support-search-field" type="text" class="form-control input-lg" name="search" placeholder="Have a question? Ask or enter a search term.">
+                                <input id="support-search-field" type="text" class="form-control input-lg" name="address" placeholder="Enter Your Address">
 								<span class="input-group-btn">
-							        <button id="support-search-btn" class="btn btn-primary btn-lg" type="button"><i class="fa fa-search"></i>&nbsp; Search</button>
+							        <button id="address-search-btn" class="btn btn-secondary btn-lg" type="submit"><i class="fa fa-search"></i>&nbsp; Search</button>
 							      </span>
                             </div>
                         </div>
@@ -136,11 +135,12 @@
     </ul>
 </footer>
 
-<script src="./js/libs/jquery-1.9.1.min.js"></script>
-<script src="./js/libs/jquery-ui-1.9.2.custom.min.js"></script>
-<script src="./js/libs/bootstrap.min.js"></script>
+<script src="/js/libs/jquery-1.9.1.min.js"></script>
+<script src="/js/libs/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="/js/libs/bootstrap.min.js"></script>
 
-<script src="./js/App.js"></script>
+<script src="/js/App.js"></script>
+<script src="/js/pages/index/main.js"></script>
 
 </body>
 </html>

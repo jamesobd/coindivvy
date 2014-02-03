@@ -7,7 +7,7 @@ Cointraction,1CSsNf1BbEAxmeYaRkmr9KtN4BM6cvz71B,66000000000,Rob Reid
 Cointraction,1C55NKqtT51xo36J1e7zxdZGc6BgnQxFbr,50000000000,Matthew Lilley
 Cointraction,1GkBuYmZ4oUWB6dR2xPZwfLjzbmsMU6Sc5,60000000000,Kyle Wilson
 Cointraction,15gNyZGQANKfTeNrzmYuiPztKHKtEm9dEo,60000000000,Kieron Mitchell
-Cointraction,19FHABJymjeZjA7kyKrQVeFi9w1tkjzw6Q,120000000000,Sergey Bafanov
+Cointraction,17KnNFgvczifPiqqf5KEXA8e7opNkHcAHX,120000000000,Sergey Bafanov
 Cointraction,1BSTa4FeWYaWYCe85vBybp467vDMcBwVNj,60000000000,Oleg Kudrin
 Cointraction,1Aa37hF2yBVWFhy1KRwWthobhRVvRiZtX5,30000000000,Mattia Milani
 Cointraction,1FsPjic1fQmh6K99TBxq1jQAFqm5mJksxZ,30000000000,Witold Kuzniar
@@ -19,7 +19,7 @@ Cointraction,1P91LLfwTEepWMEZbPBRmtS7pE8a4hWis5,30000000000,Tarquin Bruce
 Cointraction,1GzumiBpYFuov43VzeqnUvVu1thtfCa8Ys,60000000000,Raga Soft
 Cointraction,1MuZ6a9z1tqub3pNSy9Xo2HJT1ThMTbA7z,20000000000,Brad Clay
 Cointraction,14tgjLUxeWBtgWv2JpUGpb1ixBBfMt5q4A,150000000000,David Lenar
-Cointraction,,75000000000,James Jensen
+Cointraction,173Q1Evn3o1rcfV7uCnPQnzJjhivqGtTTB,75000000000,James Jensen
 Cointraction,1L2jgDwHQurhTNj9G3aEeBFJqjXwmKqHh2,30000000000,Lourens Bordewijk
 Cointraction,1Pjsac2BUeYcEd648xqPukjxTo9iY5wzSY,100000000000,Timothy Fletcher
 Cointraction,13zxWKU9oAuxDLDPfi2xXnggSCMmeTBFj3,459000000000,Dell Jensen
@@ -81,10 +81,10 @@ Drill Bit,13zxWKU9oAuxDLDPfi2xXnggSCMmeTBFj3,1540000000000,Dell Jensen
 Bit Collector,1CGN2jHAqWfV4fhapz2F4cwBZtJC32MmCZ,1000000000000,Paul Santoro
 Bit Collector,1G6PmUeHq75w7HWfq6SJQuDVRprziUh6X6,30000000000,Tiziano Taroni
 Bit Collector,1Htn74zf8uKXqUaemBF3j7X4pCjd4shnuV,30000000000,Rossi Enzo
-Bit Collector,,10000000000,Aaron Jensen
-Bit Collector,,10000000000,Adam Jensen
-Bit Collector,,250000000000,Bryan Jensen
-Bit Collector,,500000000000,James Jensen
+Bit Collector,1kuw7mviLfV6nBtqVAyB1VecM9mSwr22s,10000000000,Aaron Jensen
+Bit Collector,1KPe14sPT6eYsRh5TBL8zX7AMjdrJ7NL64,10000000000,Adam Jensen
+Bit Collector,1Jh3SgYfcCgMLGiyqi5C4uAyuZYWLmZCAf,250000000000,Bryan Jensen
+Bit Collector,173Q1Evn3o1rcfV7uCnPQnzJjhivqGtTTB,500000000000,James Jensen
 Bit Collector,13zxWKU9oAuxDLDPfi2xXnggSCMmeTBFj3,170000000000,Dell Jensen
 Giggles,13zxWKU9oAuxDLDPfi2xXnggSCMmeTBFj3,2000000000000,Dell Jensen
 Bit Rush,15KKTVjsWMR53NCvHU68hw4Hu9Kf1GLM1w,30000000000,John Worth
@@ -120,7 +120,7 @@ Coin Auger,13hGbRLvJfEYZ53iGDZ7T5dUsYLKwNZ7Zi,20000000000,Matias Borghi
 Coin Auger,14VrV6ZhXJv1G6md58bRPik5nuTr8tMveh,100000000000,Keath Gaudreau
 Coin Auger,13zxWKU9oAuxDLDPfi2xXnggSCMmeTBFj3,1800000000000,Dell Jensen
 Diamond Drill,18SRi8ZaxC8bZWEzxKssAeZQjN9L55AyBo,20000000000,Aaron Taum
-Diamond Drill,1KGe4oytH3iZCqeor5gXaJbj9YSDmw2zEc,10000000000,Ryan Garrido
+Diamond Drill,18qNPUhtPo3wLLjjy6pR7GRu737wa6pgTN,10000000000,Ryan Garrido
 Diamond Drill,1TBVBEX8FDDbk8oC4kTDDiofUNeD5E5F5,100000000000,JAMES STOPCZY
 Diamond Drill,1BuHdvpTG8KqdWgjhrc9exuLxhSfPow8KP,20000000000,Dario Dalyan Dündar
 Diamond Drill,15CHsarhZkSPm1jG7XGDW7xeV5z1ZKeSbV,10000000000,Dicser
@@ -141,7 +141,7 @@ Bit Hasher,1EZ8pYmSHrsBTFRLKumWQuxhpcoXGSVHk1 ,10000000000,Christopher Lang
 Bit Hasher,1BgcmQ8VUpRnnHaAStLrybdyTjYKuFcpP1,30000000000,Scott Loh
 Bit Hasher,19shqntPELty2WUQTF5Ye6K7YY6jFUafzG,50000000000,Nicolas Lapointe
 Bit Hasher,18JAWyumfBQUaRPETTUPfELJAGMXdHNrVK,50000000000,Nicolas Lapointe
-Bit Hasher,1TBVBEX8FDDbk8oC4kTDDiofUNeD5E5F5,100000000000,JAMES STOPCZY
+Bit Hasher,14jnyEsArSGwQZXB9bMsw4KfFHtGfYCB7Q,100000000000,JAMES STOPCZY
 Bit Hasher,1CrTpiLhnjjCa5caDCLmGrn12Ahmfro3ay,1000000000000,Nathan Winscher
 Bit Hasher,13zxWKU9oAuxDLDPfi2xXnggSCMmeTBFj3,570000000000,Dell Jensen
 Dig Dug,1L2jgDwHQurhTNj9G3aEeBFJqjXwmKqHh2,200000000000,Lourens Bordewijk

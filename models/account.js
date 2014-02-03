@@ -2,12 +2,11 @@ var mongoose = require('mongoose');
 
 
 var accountSchema = new mongoose.Schema({
-    key : {
-        name: String,  // Name of the server (cointraction)
-        owner: String // "delmonger"
-    },
+    name: String,  // Name of the server (cointraction)
+    owner: String, // "delmonger"
     address: String, // Whatever address we generate for the bitcoin account
     coin_type: String, // "bitcoin"
+    unit: { type: String, default: "Hashes" }, // "hashes"
     fee_period: Number,
     fee_per_hash: Number,
     addresses: [

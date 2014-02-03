@@ -2,7 +2,7 @@
   "name": "coindivvy.com",
   "version": "0.0.0",
   "description": "Divvy out coins",
-  "main": "server.js",
+  "main": "app.js",
   "directories": {
     "test": "test"
   },
@@ -16,6 +16,7 @@
     "express": "~3.4.4",
     "ejs": "~0.8.5",
     "mongoose": "~3.8.3",
-    "underscore": "~1.5.2"
+    "underscore": "~1.5.2",
+    "bitcoin": "~2.0.0"
   }
 }

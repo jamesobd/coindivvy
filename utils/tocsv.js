@@ -19,11 +19,9 @@ lines.forEach(function (line, i, lines) {
         // If the account is not in the accounts object then add it
         if (typeof accounts[account] === 'undefined') {
             accounts[account] = {
-                key: {
-                    name: account,
-                    owner: 'delmonger'
-                },
+                name: account,
                 data: {
+                    owner: 'delmonger',
                     address: 'asdf',
                     coin_type: 'bitcoin',
                     addresses: [],
@@ -48,7 +46,7 @@ for (var key in accounts) {
     if (accounts.hasOwnProperty(key)) {
         console.log("saving: " + key);
 
-        Account.update({key: accounts[key].key}, accounts[key].data, {upsert: true}, function (err, numberAffected, raw) {
+        Account.update({name: accounts[key].name}, accounts[key].data, {upsert: true}, function (err, numberAffected, raw) {
             if (err) return console.log(err);
             console.log("saved: " + ++myCount);
 
