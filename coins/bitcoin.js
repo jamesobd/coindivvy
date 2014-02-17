@@ -6,7 +6,6 @@ var https = require('https');
 var bitcoin = require('bitcoin');
 var _ = require('underscore');
 
-
 // Create bitcoin client instance
 var client = new bitcoin.Client({
     host: 'localhost',
@@ -18,6 +17,7 @@ var client = new bitcoin.Client({
 module.exports.client = client;
 module.exports.minBalance = .1;
 module.exports.transactionFee = .0001;
+module.exports.passphrase = '';
 
 function getBlockCount(callback) {
     client.getBlockCount(function (err, blockCount) {

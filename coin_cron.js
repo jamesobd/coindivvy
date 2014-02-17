@@ -9,7 +9,8 @@ var _ = require('underscore');
 var exchanges = require('libraries/exchanges');
 
 // Load Models
-mongoose.connect('mongodb://localhost/coindivvy');
+mongoose.connect(process.env.COINDIVVY_DB_HOST);
+//mongoose.connect('mongodb://localhost/coindivvy');
 var Account = require('./models/account.js');
 
 
@@ -86,11 +87,18 @@ Account.distinct('coin_type', function (err, coinTypes) {
                                 if (transfers_total > balance) {
                                     console.error(account.name, "Totals do not match:", transfers_total, accountInformation.amount_total);
                                 } else {
-                                    coin.client.send(account.name, transaction.amounts, function (transactionId) {
-                                        // Record the transaction to database
-                                        transaction.id = transactionId;
-                                        transaction.save();
-                                        console.log(transactionId);
+                                    coin.client.walletPassphrase(coin.passphrase, 10, function (response) {
+                                        //should do some error handling though -15 "wallet already unlocked" should be treated as success
+                                        console.log(response);
+                                        coin.client.sendMany(account.name, transaction.amounts, function (transactionId) {
+                                            // Record the transaction to database
+                                            transaction.id = transactionId;
+                                            transaction.save();
+                                            console.log(transactionId);
+                                            // Should probably do some sort of promise so that we unlock the wallet before doing everything
+                                            // and then when we are done with all of the accounts we should lock the wallet again.
+                                            //coin.client.walletLock();
+                                        });
                                     });
 
                                     console.log(account.name, transaction.amounts);
