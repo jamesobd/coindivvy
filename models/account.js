@@ -5,27 +5,26 @@ var accountSchema = new mongoose.Schema({
     name: String,  // Name of the server (cointraction)
     owner: String, // "delmonger"
     address: String, // Whatever address we generate for the bitcoin account
+    owner_address: String, // The address to send account fees to
     coin_type: String, // "bitcoin"
-    unit: { type: String, default: "Hashes" }, // "hashes"
-    fee_period: Number,
-    fee_per_hash: Number,
+    unit_name: { type: String, default: "KHashes" },
+    fee_period: { type: Number, default: 30 },
+    fee_per_unit: Number,
     addresses: [
         {
             address: String, // Out address (is unique)
-            hashes: Number, // 177000000000
-            notes: String, // "YOLANDA MARIA AGOSTINI"
-            transactions: [
-                {
-                    id: Number, // The transaction number from the cryptocurrency transaction system
-                    timestamp: { type: Date, default: Date.now }, // new Date
-                    hashes: Number, // 177000000000
-                    hashes_total: Number, // 2000000000000 (the summation of all address hashes for this account at the time of transaction
-                    amount_total: Number, // This is the amount
-                    usd_btc: Number,
-                    fee_period: Number,
-                    fee_per_hash: Number
-                }
-            ]
+            units: Number, // 177000000000
+            notes: String // "YOLANDA MARIA AGOSTINI"
+        }
+    ],
+    transactions: [
+        {
+            id: Number, // The transaction number from the cryptocurrency transaction system
+            timestamp: { type: Date, default: Date.now }, // new Date
+            transaction_period: Number, // In days
+            owner_address: String,
+            total_units: Number,
+            amounts: {}
         }
     ]
 });
