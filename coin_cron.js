@@ -40,7 +40,7 @@ Account.distinct('coin_type', function (err, coinTypes) {
 
                                 // Calculate the total hashes for the account
                                 var unit_total = _.reduce(account.addresses, function (sum, address) {
-                                    return sum + address.hashes;
+                                    return sum + address.units;
                                 }, 0);
 
                                 var accountInformation = {
@@ -48,40 +48,48 @@ Account.distinct('coin_type', function (err, coinTypes) {
                                     amount_total: accounts[account.name],
                                     usd_btc: usdRate,
                                     fee_period: account.fee_period,
-                                    fee_per_hash: account.fee_per_hash
+                                    fee_per_unit: account.fee_per_unit
                                 };
 
                                 // Calculate each address transaction data (amount, fees, etc)
+
                                 var transaction = {
-                                    id: Number, // The transaction number from the cryptocurrency transaction system
-                                    timestamp: { type: Date, default: Date.now }, // new Date
-                                    transaction_period: Number, // In days
-                                    owner_address: String,
-                                    total_units: Number,
+                                    timestamp: new Date(), // new Date
+                                    owner_address: account.owner_address,
+                                    total_units: unit_total,
                                     amounts: {}
                                 };
 
+                                // Have to add transaction period after generating the timestamp
+                                // Get the last transaction timestamp and calculate the difference.
+                                // ( subtracting dates gives milliseconds different)
+                                // (current time - last transaction time) / (1000 * 60 * 60 * 24) ms to seconds to minutes to hours to days
+                                transaction.transaction_period = (transaction.timestamp - account.transactions[account.transactions.length - 1].timestamp) / (1000 * 60 * 60 * 24); // In days
+
                                 // Calculate the account fee
-                                var accountFee = (accountInformation.amount_total - coin.transactionFee) * (account);
+                                var accountFee = amountFloor(unit_total * account.fee_per_unit * (transaction.transaction_period / account.fee_period));
 
+                                var availableBalance = balance - coin.transactionFee - accountFee;
                                 account.addresses.forEach(function (address, i, addresses) {
-
-                                    transaction.amounts[address.address] = Math.round(1e8 * accountInformation.amount_total * address.hashes / unit_total) / 1e8;
-//                                    transaction.amounts[address.address] = .0001;
+                                    transaction.amounts[address.address] = amountFloor(availableBalance * address.units / unit_total);
                                 });
+
+                                // Fees
+                                transaction.amounts[transaction.owner_address] = accountFee;
 
                                 // Calculate the amounts total
                                 var transfers_total = 0;
                                 for (var amount in transaction.amounts) {
-                                    transfers_total += transaction.amounts[amount] + .0001;
+                                    transfers_total += transaction.amounts[amount];
                                 }
-                                transfers_total = Math.round(1e8 * transfers_total) / 1e8;
 
-                                if (transfers_total != accountInformation.amount_total) {
+                                if (transfers_total > balance) {
                                     console.error(account.name, "Totals do not match:", transfers_total, accountInformation.amount_total);
                                 } else {
-                                    send(account.name, transaction.amounts, function (transactionId) {
+                                    coin.client.send(account.name, transaction.amounts, function (transactionId) {
                                         // Record the transaction to database
+                                        transaction.id = transactionId;
+                                        transaction.save();
                                         console.log(transactionId);
                                     });
 
@@ -101,6 +109,11 @@ Account.distinct('coin_type', function (err, coinTypes) {
         });
     });
 });
+
+// This is the Javascript Math is dumb so we have to improve it area
+function amountFloor (value) {
+    return Math.floor(1e8 * value) / 1e8;
+}
 
 /*
  usdValue(function (btc_usd) {

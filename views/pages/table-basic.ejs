@@ -82,7 +82,7 @@
                 <li class="">
                     <h3><%= accounts[i].key.name %></h3>
                     <% var accountHashes = 0 %>
-                    <% for (j = 0; j < accounts[i].addresses.length; ++j) { %>
+                    <% for (var j = 0; j < accounts[i].addresses.length; ++j) { %>
                         <% accountHashes += accounts[i].addresses[j].hashes %>
                     <% } %>
                     <%= accountHashes %> hashes
