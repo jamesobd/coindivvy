@@ -15,9 +15,11 @@ var client = new bitcoin.Client({
 });
 
 module.exports.client = client;
-module.exports.minBalance = .1;
+module.exports.minBalance = .0004;
+module.exports.minAccountFee = .0001;
 module.exports.transactionFee = .0001;
 module.exports.passphrase = '';
+
 
 function getBlockCount(callback) {
     client.getBlockCount(function (err, blockCount) {
