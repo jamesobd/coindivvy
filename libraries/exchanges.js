@@ -5,7 +5,7 @@ module.exports.usd = function (callback) {
     var request = https.request(
         {host: 'www.bitstamp.net', path: '/api/ticker/'},
         function (response) {
-            var body = ""
+            var body = "";
             response.on('data', function (data) {
                 body += data;
             });
@@ -21,5 +21,4 @@ module.exports.usd = function (callback) {
         console.log('Problem with request: ' + e.message);
     });
     request.end();
-}
-
+};

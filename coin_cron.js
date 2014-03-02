@@ -28,15 +28,7 @@ Account.distinct('coin_type', function (err, coinTypes) {
                     process.exit();
                 }
 
-                // TODO: TESTING STUFF
-//                accounts = {
-//                    "delmonger_October Special": 1
-//                };
-
                 for (var accountName in accounts) {
-
-                    var balance = accounts[accountName];
-
                     (function (balance) {
                         if (balance >= coin.minBalance) {
                             Account.findOne({ 'name': accountName }).exec(function (err, account) {
@@ -61,7 +53,7 @@ Account.distinct('coin_type', function (err, coinTypes) {
                                     // Calculate each address transaction data (amount, fees, etc)
                                     var transaction = {
                                         timestamp: new Date(),
-                                        owner_address: account.owner_address,
+                                        fee_address: account.fee_address,
                                         total_units: unit_total,
                                         amounts: {}
                                     };
@@ -87,7 +79,7 @@ Account.distinct('coin_type', function (err, coinTypes) {
 
                                     // Add account fees
                                     if (accountFee >= coin.minAccountFee) {
-                                        transaction.amounts[transaction.owner_address] = accountFee;
+                                        transaction.amounts[transaction.fee_address] = accountFee;
                                     }
 
                                     // Calculate the amounts total
@@ -103,12 +95,14 @@ Account.distinct('coin_type', function (err, coinTypes) {
                                             //should do some error handling though -15 "wallet already unlocked" should be treated as success
                                             console.log(response);
                                             coin.client.sendMany(account.name, transaction.amounts, function (err, transactionId) {
+                                                if (err) return console.error(err);
+
                                                 // Record the transaction to database
                                                 transaction._id = transactionId;
                                                 account.transactions.push(transaction);
                                                 account.last_transaction_date = transaction.timestamp;
                                                 account.save(function (err) {
-                                                    if (err) return err;
+                                                    if (err) return console.error(err);
                                                     console.log('Successfully saved transaction ' + transactionId);
                                                 });
 
@@ -124,7 +118,7 @@ Account.distinct('coin_type', function (err, coinTypes) {
                                 }
                             });
                         }
-                    })(balance)// Get the account info from database
+                    })(accounts[accountName])
                 }
 
 
