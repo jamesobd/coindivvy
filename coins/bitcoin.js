@@ -15,7 +15,7 @@ var client = new bitcoin.Client({
 });
 
 module.exports.client = client;
-module.exports.minBalance = .0004; // TODO: Change this back to .1
+module.exports.minBalance = .1; // TODO: Change this back to .1
 module.exports.minAccountFee = .0001;
 module.exports.transactionFee = .0001; // TODO: Get this value from bitcoind
 module.exports.passphrase = '5DcQ15hHEjS9diQ6mpnPRVQqmIGZ5';
