@@ -1,7 +1,3 @@
-/**
- * Created by jsmith on 12/20/13.
- */
-
 var bitcoin = require('bitcoin');
 
 // Create client instance

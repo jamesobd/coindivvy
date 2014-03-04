@@ -114,6 +114,8 @@ Account.distinct('coin_type', function (err, coinTypes) {
                                     });
                                 }
                             });
+                        } else {
+                            console.log("Not enough funds to process " + accountName);
                         }
                     })(accounts[accountName])
                 }
