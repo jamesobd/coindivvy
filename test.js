@@ -1,4 +1,3 @@
-var fs = require('fs');
 
 // Load Models
 var Account = require('./models/account.js');
