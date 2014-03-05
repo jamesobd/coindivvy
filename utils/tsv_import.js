@@ -16,6 +16,9 @@ var accountSettings = {
     fee_per_unit: .2
 };
 
+// Should we reset all addresses during the import?
+var resetAddresses = true;
+
 // Process the csv file and collect the accounts/addresses synchronously first
 var accounts = {};
 var lines = fs.readFileSync(__dirname + '/import.tsv', 'utf8').split('\n');
@@ -67,7 +70,7 @@ for (var accountName in accounts) {
 
                     // Create a new bitcoin account and save it's address
                     if (walletAccounts.hasOwnProperty(account._id)) {
-                        return console.error('The account "' + account._id + '" is already part of the wallet but is missing in the database.');
+                        return console.error('The account "' + account._id + '" is already in the wallet and missing in the database.');
                     }
 
                     // Create a new wallet account and address
@@ -84,22 +87,28 @@ for (var accountName in accounts) {
                     });
                 });
             } else {
-                // Upsert all addresses into the account document
-                account.addresses.forEach(function (address, i, addresses) {
-                    var addressDoc = accountDoc.addresses.id(address._id);
-
-                    // Is the address in the database?
-                    if (addressDoc === null) {
+                // Are the addresses being reset?
+                if (resetAddresses) {
+                    accountDoc.addresses = [];
+                    account.addresses.forEach(function(address, i, myArray) {
                         accountDoc.addresses.push(address);
-                    } else {
-                        // Update the address document properties
-                        for (var prop in address) {
-                            addressDoc[prop] = address[prop];
+                    });
+                } else {
+                    // Upsert all addresses into the account document
+                    account.addresses.forEach(function (address, i, addresses) {
+                        var addressDoc = accountDoc.addresses.id(address._id);
+
+                        // Is the address in the database?
+                        if (addressDoc === null) {
+                            accountDoc.addresses.push(address);
+                        } else {
+                            // Update the address document properties
+                            for (var prop in address) {
+                                addressDoc[prop] = address[prop];
+                            }
                         }
-                    }
-
-                });
-
+                    });
+                }
                 // Save the account
                 accountDoc.save(function (err, accountDoc) {
                     if (err) return console.error(err);
