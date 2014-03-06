@@ -74,7 +74,7 @@ Account.distinct('coin_type', function (err, coinTypes) {
                                 var accountFee = amountFloor(unit_total * account.fee_per_unit * (transactionPeriod / account.fee_period) / usdRate);
 
                                 // Add address payment amounts
-                                var availableBalance = balance - coin.transactionFee - accountFee;
+                                var availableBalance = balance - coin.transactionFee * 100 - accountFee;
                                 account.addresses.forEach(function (address, i, addresses) {
                                     transaction.amounts[address._id] = amountFloor(availableBalance * address.units / unit_total);
                                 });
