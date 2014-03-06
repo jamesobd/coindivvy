@@ -1,11 +1,8 @@
 var https = require('https');
-var mongoose = require('mongoose');
 var _ = require('underscore');
 var exchanges = require('./libraries/exchanges');
 
 // Load Models
-//mongoose.connect(process.env.COINDIVVY_DB_HOST);
-mongoose.connect('mongodb://localhost/coindivvy');
 var Account = require('./models/account.js');
 
 
