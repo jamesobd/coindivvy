@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/coindivvy');
 
 var transactionSchema = new mongoose.Schema({
     _id: String, // The transaction number from the cryptocurrency transaction system (is unique)

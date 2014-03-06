@@ -1,9 +1,7 @@
 var fs = require('fs');
-var mongoose = require('../node_modules/mongoose');
 var _ = require('underscore');
 
 // Load Models
-mongoose.connect('mongodb://localhost/coindivvy');
 var Account = require('../models/account.js');
 
 // Collect the account information
@@ -16,7 +14,7 @@ var accountSettings = {
     fee_per_unit: .2
 };
 
-// Should we reset all addresses during the import?
+// Should we reset the addresses array in existing accounts during the import?
 var resetAddresses = true;
 
 // Process the csv file and collect the accounts/addresses synchronously first
@@ -80,7 +78,7 @@ for (var accountName in accounts) {
 
                         // Save the new account to the database
                         new Account(account).save(function (err, accountDoc, numberAffected) {
-                            if (err) return console.error("Trying to create the account", err, accountDoc, numberAffected);
+                            if (err) return console.error("Trying to create the account ", err, accountDoc, numberAffected);
 
                             console.log("Account created: " + accountDoc._id);
                         });
