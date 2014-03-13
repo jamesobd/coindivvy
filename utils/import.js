@@ -1,5 +1,10 @@
 var fs = require('fs');
 var _ = require('underscore');
+//var async = require('async');
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/coindivvy');
+//mongoose.connect(process.env.COINDIVVY_DB_HOST);
 
 // Load Models
 var Account = require('../models/account.js');
@@ -68,7 +73,7 @@ for (var accountName in accounts) {
 
                     // Create a new bitcoin account and save it's address
                     if (walletAccounts.hasOwnProperty(account._id)) {
-                        return console.error('The account "' + account._id + '" is already in the wallet and missing in the database.');
+                        return console.error('The account "' + account._id + '" is in the wallet but missing in the database.');
                     }
 
                     // Create a new wallet account and address
@@ -77,7 +82,7 @@ for (var accountName in accounts) {
                         account.address = newAddress;
 
                         // Save the new account to the database
-                        new Account(account).save(function (err, accountDoc, numberAffected) {
+                        Account.create(account, function (err, accountDoc, numberAffected) {
                             if (err) return console.error("Trying to create the account ", err, accountDoc, numberAffected);
 
                             console.log("Account created: " + accountDoc._id);
