@@ -10,7 +10,7 @@ var coin = require('./coins/' + 'bitcoin');
 coin.client.listAccounts(function (err, accounts) {
     console.log(accounts);
 
-    coin.client.getbalance(function (err, balance) {
+    coin.client.getBalance(function (err, balance) {
         console.log(balance);
     });
 });
