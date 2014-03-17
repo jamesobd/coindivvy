@@ -7,10 +7,10 @@ var Account = require('./models/account.js');
 
 
 var coin = require('./coins/' + 'bitcoin');
-coin.client.listAccounts(function (err, accounts) {
+coin.client.listAccounts(coin.minConfirmations, function (err, accounts) {
     console.log(accounts);
 
-    coin.client.getBalance(function (err, balance) {
+    coin.client.getBalance(coin.minConfirmations, function (err, balance) {
         console.log(balance);
     });
 });

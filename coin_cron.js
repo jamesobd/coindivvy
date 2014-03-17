@@ -18,7 +18,7 @@ Account.distinct('coin_type', function (err, coinTypes) {
         coinTypes.forEach(function (coinType, index, coinTypes) {
 
             var coin = require('./coins/' + coinType);
-            coin.client.listAccounts(function (err, accounts) {
+            coin.client.listAccounts(coin.minConfirmations, function (err, accounts) {
                 // Make sure we can connect to client
                 if (err) {
                     if (err.code = 'ECONNREFUSED') {
@@ -30,8 +30,8 @@ Account.distinct('coin_type', function (err, coinTypes) {
                 }
 
                 for (var accountName in accounts) {
-                    (function (balance) {
-                        if (balance >= coin.minBalance) {
+                    (function (accountBalance) {
+                        if (accountBalance >= coin.minAccountBalance) {
                             Account.findById(accountName, function (err, account) {
                                 if (err) return console.error(err);
 
@@ -74,7 +74,7 @@ Account.distinct('coin_type', function (err, coinTypes) {
                                 var accountFee = amountFloor(unit_total * account.fee_per_unit * (transactionPeriod / account.fee_period) / usdRate);
 
                                 // Add address payment amounts
-                                var availableBalance = balance - coin.transactionFee * 100 - accountFee;
+                                var availableBalance = accountBalance - coin.transactionFee * 100 - accountFee; // Multiply the transaction fee by 100 to ensure we have enough funds remaining
                                 account.addresses.forEach(function (address, i, addresses) {
                                     transaction.amounts[address._id] = amountFloor(availableBalance * address.units / unit_total);
                                 });
@@ -90,13 +90,13 @@ Account.distinct('coin_type', function (err, coinTypes) {
                                     transfers_total += transaction.amounts[prop];
                                 }
 
-                                if (transfers_total > balance - coin.transactionFee || availableBalance <= 0) {
+                                if (transfers_total > accountBalance - coin.transactionFee || availableBalance <= 0) {
                                     console.error(account._id, "Not enough funds or totals do not match:", transfers_total, accountInformation.amount_total);
                                 } else {
                                     coin.client.walletPassphrase(coin.passphrase, 10, function (response) {
                                         //should do some error handling though -15 "wallet already unlocked" should be treated as success
                                         console.log(response);
-                                        coin.client.sendMany(account._id, transaction.amounts, function (err, transactionId) {
+                                        coin.client.sendMany(account._id, transaction.amounts, coin.minConfirmations, function (err, transactionId) {
                                             if (err) return console.error(err, transactionId);
 
                                             // Record the transaction to database
