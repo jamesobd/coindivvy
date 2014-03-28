@@ -63,7 +63,7 @@ lines.forEach(function (line, i, lines) {
 for (var accountName in accounts) {
     (function (account) {
         Account.findById(account._id, function (err, accountDoc) {
-            if (err) return console.error(err, accountDoc);
+            if (err) return console.error(err);
 
             // If the account is not in the database yet save the new account
             if (accountDoc === null) {
@@ -78,12 +78,12 @@ for (var accountName in accounts) {
 
                     // Create a new wallet account and address
                     coin.client.getNewAddress(account._id, function (err, newAddress) {
-                        if (err) return console.error(err, address);
+                        if (err) return console.error(err);
                         account.address = newAddress;
 
                         // Save the new account to the database
                         Account.create(account, function (err, accountDoc, numberAffected) {
-                            if (err) return console.error("Trying to create the account ", err, accountDoc, numberAffected);
+                            if (err) return console.error("Failed to create the account ", err, accountDoc, numberAffected);
 
                             console.log("Account created: " + accountDoc._id);
                         });
