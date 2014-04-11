@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/coindivvy');
 //mongoose.connect(process.env.COINDIVVY_DB_HOST);
+var exchanges = require('./libraries/exchanges');
 
 // Load Models
 var Account = require('./models/account.js');
@@ -13,4 +14,7 @@ coin.client.listAccounts(coin.minConfirmations, function (err, accounts) {
     coin.client.getBalance('*', coin.minConfirmations, function (err, balance) {
         console.log(balance);
     });
+});
+exchanges.usd(function (usdRate) {
+    console.log('BTC_USD = ' + usdRate);
 });
