@@ -93,7 +93,7 @@ Account.distinct('coin_type', function (err, coinTypes) {
                                 if (transfers_total > accountBalance - coin.transactionFee || availableBalance <= 0) {
                                     console.error(account._id, "Not enough funds or totals do not match:", transfers_total, accountBalance, coin.transactionFee, availableBalance, accountFee);
                                 } else {
-                                    coin.client.walletPassphrase(coin.passphrase, 10, function (response) {
+                                    coin.client.walletPassphrase(coin.passphrase, 20, function (response) {
                                         //should do some error handling though -15 "wallet already unlocked" should be treated as success
                                         console.log(response);
                                         coin.client.sendMany(account._id, transaction.amounts, coin.minConfirmations, function (err, transactionId) {
