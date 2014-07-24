@@ -78,16 +78,9 @@
         <nav id="sidebar">
 
             <ul id="main-nav" class="open-active">
-                <% for (i = 0; i < accounts.length; ++i) { %>
                 <li class="">
-                    <h3><%= accounts[i].key.name %></h3>
-                    <% var accountHashes = 0 %>
-                    <% for (var j = 0; j < accounts[i].addresses.length; ++j) { %>
-                        <% accountHashes += accounts[i].addresses[j].hashes %>
-                    <% } %>
-                    <%= accountHashes %> hashes
+                    <h3></h3>
                 </li>
-                <% } %>
             </ul>
 
         </nav>
@@ -113,37 +106,29 @@
                 <div class="col-md-12">
 
                     <h4 class="heading">
-                        Address: <%= params.address %>
+                        Address:
                     </h4>
 
-                    <% accounts.forEach(function(account, i, accounts) { %>
-                        <div>Account: <%= account.key.name %></div>
-                        <table class="table table-bordered table-highlight table-hover table-striped">
-                            <thead>
-                            <tr>
-                                <th>TX #</th>
-                                <th>Date</th>
-                                <th>Hashes</th>
-                                <th>Amount</th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                    <div>Account:</div>
+                    <table class="table table-bordered table-highlight table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>TX #</th>
+                            <th>Date</th>
+                            <th>Hashes</th>
+                            <th>Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
-                            <% account.addresses.forEach(function(address, i, addresses) { %>
-                                <% if (address.address == params.address) { %>
-                                    <% address.transactions.forEach(function(transaction, i, transactions) { %>
-                                        <tr>
-                                            <td><%= transaction.id %></td>
-                                            <td><%= transaction.timestamp %></td>
-                                            <td><%= transaction.hashes %></td>
-                                            <td>asdf</td>
-                                        </tr>
-                                    <% }); %>
-                                <% }; %>
-                            <% }); %>
-                            </tbody>
-                        </table>
-                    <% }); %>
+                        <tr>
+                            <td><%= transaction.id %></td>
+                            <td><%= transaction.timestamp %></td>
+                            <td><%= transaction.hashes %></td>
+                            <td>asdf</td>
+                        </tr>
+                        </tbody>
+                    </table>
 
                 </div>
                 <!-- /.col -->

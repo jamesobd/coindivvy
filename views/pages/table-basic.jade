@@ -1,0 +1,86 @@
+doctype html
+html.no-js
+//
+    <![endif]
+head
+    title Coin Divvy - Transaction History
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,800italic,400,600,800', type='text/css')
+    link(rel='stylesheet', href='/css/font-awesome.min.css', type='text/css')
+    link(rel='stylesheet', href='/css/bootstrap.min.css', type='text/css')
+    link(rel='stylesheet', href='/js/libs/css/ui-lightness/jquery-ui-1.9.2.custom.css', type='text/css')
+    link(rel='stylesheet', href='/css/App.css', type='text/css')
+    link(rel='stylesheet', href='/css/custom.css', type='text/css')
+body
+    #wrapper
+        header#header
+            h1#site-logo
+                a(href='/')
+                    img(src='/img/logos/logo.png', alt='Site Logo')
+            a#top-bar-toggle.navbar-toggle.collapsed(href='javascript:;', data-toggle='collapse', data-target='.top-bar-collapse')
+                i.fa.fa-cog
+            a#sidebar-toggle.navbar-toggle.collapsed(href='javascript:;', data-toggle='collapse', data-target='.sidebar-collapse')
+                i.fa.fa-reorder
+        //
+           header
+        nav#top-bar.collapse.top-bar-collapse
+            ul.nav.navbar-nav.pull-left
+            ul.nav.navbar-nav.pull-right
+        //
+           /#top-bar
+        #sidebar-wrapper.collapse.sidebar-collapse
+            #search
+            //
+               #search
+            nav#sidebar
+                ul#main-nav.open-active
+                    li.
+                      h3
+            //
+               #sidebar
+        //
+           /#sidebar-wrapper
+        #content
+            #content-header
+                h1 Transaction History
+            //
+               #content-header
+            #content-container
+                .row
+                    .col-md-12
+                        h4.heading
+                            | Address: #{params.address}
+                        div Account:
+                        table.table.table-bordered.table-highlight.table-hover.table-striped
+                            thead
+                                tr
+                                    th TX #
+                                    th Date
+                                    th Hashes
+                                    th Amount
+                            tbody
+                                each result in results
+                                    tr
+                                        td
+                                            a(href= 'https://blockchain.info/tx/' + result.transactions._id)!= result.transactions._id.substr(0,6) + '&hellip;' + result.transactions._id.substr(-6)
+                                        td= result.transactions.timestamp.getFullYear() + "-" + ("0" + (result.transactions.timestamp.getMonth()+ 1)).slice(-2) + "-" + ("0" + result.transactions.timestamp.getDate()).slice(-2) + " " + ("0" + result.transactions.timestamp.getHours()).slice(-2) + ":" + ("0" + result.transactions.timestamp.getMinutes()).slice(-2) + ":" + ("0" + result.transactions.timestamp.getSeconds()).slice(-2)
+                                        td= result.transactions.amounts[params.address]
+                                        td= result.transactions.amounts[params.address]
+                        //- col
+                //- row
+            pre
+            //- content-container
+        //- content
+    //- wrapper
+    footer#footer
+        ul.nav.pull-right
+            li
+                | Copyright © 2013, Jumpstart Themes.
+    script(src='/js/libs/jquery-1.9.1.min.js')
+    script(src='/js/libs/jquery-ui-1.9.2.custom.min.js')
+    script(src='/js/libs/bootstrap.min.js')
+    script(src='/js/App.js')
+                                                                                                           

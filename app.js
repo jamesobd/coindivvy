@@ -2,10 +2,12 @@ var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
 var _ = require('underscore');
-
+var MongoClient = require('mongodb').MongoClient
+    , Server = require('mongodb').Server;
+var mongoClient = new MongoClient(new Server('localhost', 27017));
 
 // Load Models
-mongoose.connect(process.env.COINDIVVY_DB_HOST);
+//mongoose.connect(process.env.COINDIVVY_DB_HOST);
 //mongoose.connect('mongodb://localhost/coindivvy');
 var Account = require('./models/account.js');
 
@@ -13,7 +15,7 @@ var Account = require('./models/account.js');
 /********************************************************
  * Page Routes
  *******************************************************/
-app.set('view engine', 'ejs');
+app.set('view engine', 'jade');
 
 // Home page
 app.get('/', function (req, res) {
@@ -26,23 +28,38 @@ app.get('/signin', function (req, res) {
 });
 
 // Address page
-app.get('/address/:address', function (req, res) {
-    var params = req.params;
 
-    // Query database for a list of accounts this out-address belongs to
-    Account.find({ 'addresses.address': params.address }).exec(function(err, accounts) {
-        if (err) return handleError(err);
-        accounts.forEach(function(account, i, accounts) {
+// Query database for a list of accounts this out-address belongs to
+mongoClient.open(function (err, mongoClient) {
+    if (err) return console.error(err);
 
+    app.get('/address/:address', function (req, res) {
+        var params = req.params;
+        var db = mongoClient.db('coindivvy');
+
+        var collection = db.collection("accounts");
+
+        // Create the match
+        var match = {$match:{}};
+        match.$match["transactions.amounts." + params.address] = {$exists:true};
+
+        collection.aggregate([
+            {$unwind: "$transactions"},
+            match,
+            {$project: {_id:1, address:1, fee_address:1, transactions:1, unit_name:1}},
+            {$sort: { "transactions.timestamp": -1}}
+        ], function (err, results) {
+            if (err) return console.error(err);
+
+            // Send the results to the render function
+            res.render(__dirname + '/views/pages/table-basic.jade',
+                {
+                    params: params,
+                    results: results
+                }
+            );
         });
 
-        // Send the results to the render function
-        res.render(__dirname + '/views/pages/table-basic.ejs',
-            {
-                params: params,
-                accounts: accounts
-            }
-        );
     });
 
 });
@@ -52,10 +69,6 @@ app.get('/address/:address', function (req, res) {
 app.use(express.static(__dirname + '/static'));
 
 app.get('/test', function (req, res) {
-    Account.find({ 'addresses.address': '1MuZ6a9z1tqub3pNSy9Xo2HJT1ThMTbA7z' }).exec(function(err, accounts) {
-        if (err) return handleError(err);
-        res.send(accounts);
-    });
 
 });
 
