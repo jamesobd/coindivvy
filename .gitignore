@@ -1,3 +1,4 @@
 node_modules
 .idea
 .bitcoin-0.8.6-win32
+static/examples
