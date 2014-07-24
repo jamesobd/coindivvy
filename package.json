@@ -2,13 +2,12 @@
   "name": "coindivvy.com",
   "version": "0.0.0",
   "description": "Divvy out coins",
-  "main": "app.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node index.js"
   },
   "author": "James",
   "license": "BSD-2-Clause",

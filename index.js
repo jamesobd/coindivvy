@@ -1,15 +1,7 @@
 var express = require('express');
 var app = express();
-var mongoose = require('mongoose');
 var _ = require('underscore');
 var MongoClient = require('mongodb').MongoClient
-    , Server = require('mongodb').Server;
-var mongoClient = new MongoClient(new Server('localhost', 27017));
-
-// Load Models
-//mongoose.connect(process.env.COINDIVVY_DB_HOST);
-//mongoose.connect('mongodb://localhost/coindivvy');
-var Account = require('./models/account.js');
 
 
 /********************************************************
@@ -30,23 +22,22 @@ app.get('/signin', function (req, res) {
 // Address page
 
 // Query database for a list of accounts this out-address belongs to
-mongoClient.open(function (err, mongoClient) {
+//MongoClient.connect("mongodb://divvy-ro%3AM0R%40on%25PhBOg%4037Xa@troup.mongohq.com:10051/CoinDivvy", function (err, db) {
+MongoClient.connect(process.env.COINDIVVY_DB_HOST, function (err, db) {
+//MongoClient.connect("mongodb://localhost:27017/coindivvy", function (err, db) {
     if (err) return console.error(err);
 
     app.get('/address/:address', function (req, res) {
         var params = req.params;
-        var db = mongoClient.db('coindivvy');
-
-        var collection = db.collection("accounts");
 
         // Create the match
-        var match = {$match:{}};
-        match.$match["transactions.amounts." + params.address] = {$exists:true};
+        var match = {$match: {}};
+        match.$match["transactions.amounts." + params.address] = {$exists: true};
 
-        collection.aggregate([
+        db.collection("accounts").aggregate([
             {$unwind: "$transactions"},
             match,
-            {$project: {_id:1, address:1, fee_address:1, transactions:1, unit_name:1}},
+            {$project: {_id: 1, address: 1, fee_address: 1, transactions: 1, unit_name: 1}},
             {$sort: { "transactions.timestamp": -1}}
         ], function (err, results) {
             if (err) return console.error(err);
@@ -59,9 +50,7 @@ mongoClient.open(function (err, mongoClient) {
                 }
             );
         });
-
     });
-
 });
 
 
