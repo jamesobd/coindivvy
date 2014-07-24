@@ -56,14 +56,22 @@ body
                         - var blah = 0;
                         each result in results
                             - blah += result.transactions.amounts[params.address]
-                        div Total BTC: #{blah}
+                        .row
+                            .col-md-3.col-sm-6
+                                .dashboard-stat(href='javascript:;')
+                                    .visual
+                                        i.fa.fa-money
+                                    .details
+                                        span.content Total Amount
+                                        span.value
+                                            span.fa.fa-btc= blah.toFixed(4)
+                                    i.fa.fa-play-circle.more
 
-                        table.table.table-bordered.table-highlight.table-hover.table-striped
+                          table.table.table-bordered.table-highlight.table-hover.table-striped
                             thead
                                 tr
                                     th TX #
                                     th Date
-                                    th Hashes
                                     th Amount
                             tbody
                                 each result in results
@@ -71,7 +79,6 @@ body
                                         td
                                             a(href= 'https://blockchain.info/tx/' + result.transactions._id)!= result.transactions._id.substr(0,6) + '&hellip;' + result.transactions._id.substr(-6)
                                         td= result.transactions.timestamp.getFullYear() + "-" + ("0" + (result.transactions.timestamp.getMonth()+ 1)).slice(-2) + "-" + ("0" + result.transactions.timestamp.getDate()).slice(-2) + " " + ("0" + result.transactions.timestamp.getHours()).slice(-2) + ":" + ("0" + result.transactions.timestamp.getMinutes()).slice(-2) + ":" + ("0" + result.transactions.timestamp.getSeconds()).slice(-2)
-                                        td= result.transactions.amounts[params.address]
                                         td= result.transactions.amounts[params.address]
                         //- col
                 //- row
