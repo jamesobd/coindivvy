@@ -17,6 +17,7 @@
     "mongoose": "~3.8.8",
     "underscore": "~1.5.2",
     "bitcoin": "~2.0.0",
-    "async": "~0.2.10"
+    "async": "~0.2.10",
+    "mongodb": "~1.4.7"
   }
 }

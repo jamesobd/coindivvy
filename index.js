@@ -60,5 +60,11 @@ app.get('/test', function (req, res) {
 
 });
 
-app.listen(25943);
-console.log('Listening on port 25943');
+
+if (process.argv[2]) {
+    app.listen(process.argv[2]);
+    console.log('Listening on port ' + process.argv[2]);
+} else {
+    app.listen(25943);
+    console.log('Listening on port 25943');
+}
