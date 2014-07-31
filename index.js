@@ -22,7 +22,6 @@ app.get('/signin', function (req, res) {
 // Address page
 
 // Query database for a list of accounts this out-address belongs to
-//MongoClient.connect("mongodb://divvy-ro%3AM0R%40on%25PhBOg%4037Xa@troup.mongohq.com:10051/CoinDivvy", function (err, db) {
 MongoClient.connect(process.env.COINDIVVY_DB_HOST, function (err, db) {
 //MongoClient.connect("mongodb://localhost:27017/coindivvy", function (err, db) {
     if (err) return console.error(err);
