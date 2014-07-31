@@ -13,11 +13,11 @@
   "license": "BSD-2-Clause",
   "dependencies": {
     "express": "~3.4.4",
-    "ejs": "~0.8.5",
     "mongoose": "~3.8.8",
     "underscore": "~1.5.2",
     "bitcoin": "~2.0.0",
     "async": "~0.2.10",
-    "mongodb": "~1.4.7"
+    "mongodb": "~1.4.7",
+    "jade": "~1.5.0"
   }
 }
