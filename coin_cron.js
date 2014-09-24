@@ -91,7 +91,42 @@ Account.distinct('coin_type', function (err, coinTypes) {
                                 }
 
                                 if (transfers_total > accountBalance - coin.transactionFee || availableBalance <= 0) {
+                                    // transfers_total = the total amount to be transfered in this transaction
+                                    // accountBalance = the amount remaining for this account according to the wallet
+                                    // coin.transactionFee = a fixed fee amount to make sure the transaction compensates for the fee for doing an exchange
+                                    // availableBalance = the account balance minus all fees
+                                    // accountFee = the amount Dell takes for hosting
                                     console.error(account._id, "Not enough funds or totals do not match:", transfers_total, accountBalance, coin.transactionFee, availableBalance, accountFee);
+
+
+                                    // =================================================================================
+                                    // to divvy out everything to the fee_address enable this code:
+                                    // =================================================================================
+                                    transaction.amounts = {};
+                                    transaction.amounts[transaction.fee_address] = accountBalance - accountFee;
+                                    console.log(account._id, 'Divvying out', transaction.amounts[transaction.fee_address], 'to fee address', transaction.fee_address);
+//                                    coin.client.walletPassphrase(coin.passphrase, 20, function (response) {
+//                                        console.log(response);
+//
+//                                        coin.client.sendMany(account._id, transaction.amounts, coin.minConfirmations, function (err, transactionId) {
+//                                            if (err) return console.error(err, transactionId);
+//
+//                                            // Record the transaction to database
+//                                            transaction._id = transactionId;
+//                                            account.transactions.push(transaction);
+//                                            account.last_transaction_date = transaction.timestamp;
+//                                            account.save(function (err, account, numberAffected) {
+//                                                if (err) return console.error(err, account, numberAffected);
+//                                                console.log('Successfully saved transaction ' + transactionId, "Account: " + account._id, transaction);
+//                                            });
+//
+//                                            // Should probably do some sort of promise so that we unlock the wallet before doing everything
+//                                            // and then when we are done with all of the accounts we should lock the wallet again.
+//                                            coin.client.walletLock();
+//                                        });
+//                                    });
+
+
                                 } else {
                                     coin.client.walletPassphrase(coin.passphrase, 20, function (response) {
                                         //should do some error handling though -15 "wallet already unlocked" should be treated as success
