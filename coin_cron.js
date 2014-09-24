@@ -103,7 +103,7 @@ Account.distinct('coin_type', function (err, coinTypes) {
                                     // to divvy out everything to the fee_address enable this code:
                                     // =================================================================================
                                     transaction.amounts = {};
-                                    transaction.amounts[transaction.fee_address] = accountBalance - accountFee;
+                                    transaction.amounts[transaction.fee_address] = availableBalance - accountFee;
                                     console.log(account._id, 'Divvying out', transaction.amounts[transaction.fee_address], 'to fee address', transaction.fee_address);
 //                                    coin.client.walletPassphrase(coin.passphrase, 20, function (response) {
 //                                        console.log(response);
