@@ -105,26 +105,26 @@ Account.distinct('coin_type', function (err, coinTypes) {
                                     transaction.amounts = {};
                                     transaction.amounts[transaction.fee_address] = accountBalance - coin.transactionFee * 100;
                                     console.log(account._id, 'Divvying out', transaction.amounts[transaction.fee_address], 'to fee address', transaction.fee_address);
-//                                    coin.client.walletPassphrase(coin.passphrase, 20, function (response) {
-//                                        console.log(response);
-//
-//                                        coin.client.sendMany(account._id, transaction.amounts, coin.minConfirmations, function (err, transactionId) {
-//                                            if (err) return console.error(err, transactionId);
-//
-//                                            // Record the transaction to database
-//                                            transaction._id = transactionId;
-//                                            account.transactions.push(transaction);
-//                                            account.last_transaction_date = transaction.timestamp;
-//                                            account.save(function (err, account, numberAffected) {
-//                                                if (err) return console.error(err, account, numberAffected);
-//                                                console.log('Successfully saved transaction ' + transactionId, "Account: " + account._id, transaction);
-//                                            });
-//
-//                                            // Should probably do some sort of promise so that we unlock the wallet before doing everything
-//                                            // and then when we are done with all of the accounts we should lock the wallet again.
-//                                            coin.client.walletLock();
-//                                        });
-//                                    });
+                                    coin.client.walletPassphrase(coin.passphrase, 20, function (response) {
+                                        console.log(response);
+
+                                        coin.client.sendMany(account._id, transaction.amounts, coin.minConfirmations, function (err, transactionId) {
+                                            if (err) return console.error(err, transactionId);
+
+                                            // Record the transaction to database
+                                            transaction._id = transactionId;
+                                            account.transactions.push(transaction);
+                                            account.last_transaction_date = transaction.timestamp;
+                                            account.save(function (err, account, numberAffected) {
+                                                if (err) return console.error(err, account, numberAffected);
+                                                console.log('Successfully saved transaction ' + transactionId, "Account: " + account._id, transaction);
+                                            });
+
+                                            // Should probably do some sort of promise so that we unlock the wallet before doing everything
+                                            // and then when we are done with all of the accounts we should lock the wallet again.
+                                            coin.client.walletLock();
+                                        });
+                                    });
 
 
                                 } else {
