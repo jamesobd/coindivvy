@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-//mongoose.connect('mongodb://localhost/coindivvy');
 mongoose.connect(process.env.COINDIVVY_DB_HOST);
 var exchanges = require('./libraries/exchanges');
 
