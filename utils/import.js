@@ -4,7 +4,7 @@ var _ = require('underscore');
 
 var mongoose = require('mongoose');
 //mongoose.connect('mongodb://localhost/coindivvy');
-mongoose.connect(process.env.COINDIVVY_DB_HOST);
+mongoose.connect('mongodb://coindivvy:c6tzcFDLSHdH@troup.mongohq.com:10051/CoinDivvy');
 
 // Load Models
 var Account = require('../models/account.js');

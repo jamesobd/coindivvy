@@ -1,6 +1,6 @@
 {
   "name": "coindivvy.com",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Divvy out coins",
   "directories": {
     "test": "test"
@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
-  "author": "James",
+  "author": "James Jensen",
   "license": "BSD-2-Clause",
   "dependencies": {
     "express": "~3.4.4",

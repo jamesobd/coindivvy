@@ -23,7 +23,6 @@ app.get('/signin', function (req, res) {
 
 // Query database for a list of accounts this out-address belongs to
 MongoClient.connect(process.env.COINDIVVY_DB_HOST, function (err, db) {
-//MongoClient.connect("mongodb://localhost:27017/coindivvy", function (err, db) {
     if (err) return console.error(err);
 
     app.get('/address/:address', function (req, res) {
