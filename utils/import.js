@@ -3,16 +3,15 @@ var _ = require('underscore');
 //var async = require('async');
 
 var mongoose = require('mongoose');
-//mongoose.connect('mongodb://localhost/coindivvy');
-mongoose.connect('mongodb://coindivvy:c6tzcFDLSHdH@troup.mongohq.com:10051/CoinDivvy');
+mongoose.connect(process.env.COINDIVVY_DB_HOST);
 
 // Load Models
 var Account = require('../models/account.js');
 
 // Collect the account information
 var accountSettings = {
-    owner: "delmonger",
-    fee_address: "1BLc1Tp1GpC1WsesNLrieTJ26b9J436LBz",
+    owner: process.env.COINDIVVY_OWNER,
+    fee_address: process.env.COINDIVVY_FEE_ADDRESS,
     coin_type: "bitcoin",
     unit_name: "GH",
     fee_period: 30,

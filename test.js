@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
-//mongoose.connect('mongodb://localhost/coindivvy');
-mongoose.connect('mongodb://coindivvyro:9JF39$MqQR^l^42m@troup.mongohq.com:10051/CoinDivvy');
+mongoose.connect(process.env.COINDIVVY_DB_HOST);
 var exchanges = require('./libraries/exchanges');
 
 // Load Models
